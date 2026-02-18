@@ -82,4 +82,15 @@ body::before {
   border-color: #a8a29e;
 }
 
+/* Grille portfolio pro — cartes espacées */
+.projects-grid {
+  display: grid;
+  gap: var(--spacing-carnet);
+}
+@media (min-width: 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Contraste WCAG AAA : #292524 sur #fdfcf0 > 7:1 */

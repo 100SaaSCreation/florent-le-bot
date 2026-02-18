@@ -17,12 +17,14 @@ export default async function AdminPage() {
   return (
     <div
       className="min-h-screen px-4 py-8"
-      style={{ backgroundColor: "#fdfcf0" }}
+      style={{ backgroundColor: "var(--background)" }}
     >
-      <main className="max-w-2xl mx-auto">
-        <h1 className="text-xl font-normal text-stone-800 mb-2">Admin</h1>
-        <p className="text-stone-600 text-sm mb-8">
-          Gestion des projets affichés sur la vitrine.
+      <main className="max-w-3xl mx-auto">
+        <h1 className="text-xl font-normal font-display mb-2" style={{ color: "var(--foreground)" }}>
+          Admin
+        </h1>
+        <p className="text-sm mb-8" style={{ color: "var(--muted)" }}>
+          Gestion des projets affichés sur la vitrine. Titre, description, URL, image (Unsplash ou autre), ordre.
         </p>
 
         {/* Ajouter un projet */}

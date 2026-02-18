@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V2.4)
+# STATE.md — Registre d'état technique (V2.5)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -82,7 +82,7 @@
   "admin_crud": "createProject, updateProject, deleteProject (Server Actions)",
   "image_formats": "webp, avif (next.config)",
   "seo": "metadataBase, openGraph, twitter (layout)",
-  "design": "V2.4 — Geist, hiérarchie suisse, letter-spacing titres, grain papier 0.02, fade-in sections, hover cartes, smooth scroll, empty state inspirant",
+  "design": "V2.5 — Grille cartes portfolio pro, bio « Artisan du web… », Geist, grain papier, WCAG AAA, images Unsplash (next.config remotePatterns)",
   "admin_visibility": "aucun lien public vers /admin (accès direct uniquement)",
   "home_page_html_kb": "~10",
   "docs_system": "state_audit",
@@ -104,7 +104,10 @@
   "lighthouse_accessibility": 1,
   "constraints": "poids < 120 Ko, contraste WCAG AAA conservé",
   "phase6_push": "done (commit fd851b6)",
-  "phase6_deploy": "done (vercel --prod, design V2.4 vérifié en prod)"
+  "phase6_deploy": "done (vercel --prod, design V2.4 vérifié en prod)",
+  "phase6_status": "Active — Base peuplée & Design Pro",
+  "seed_projects": "4 projets (SaaS Analytics, Design System, API Gateway, E-commerce Headless), images Unsplash",
+  "admin_credentials": "SECRETS.md (gitignored), synchroniser avec .env pour db:seed"
 }
 ```
 
@@ -118,7 +121,7 @@
 
 **Phase 5 :** ✅ **Validée** — Déploiement final, Lighthouse 99/100 Perf, 100/100 Accessibilité.
 
-**Phase 6 :** ✅ **Push & déploiement effectués** — Commit `fd851b6` poussé sur GitHub, `vercel --prod` exécuté. **https://florent-le-bot.vercel.app** affiche le design V2.4 (Bienvenue, empty state « La page blanche attend l'encre », Contact). Typo Geist, grain papier, fade-in, smooth scroll en production.
+**Phase 6 :** 🟢 **Active — Base peuplée & Design Pro** — Seed 4 projets fictifs (SaaS Analytics, Design System, API Gateway, E-commerce Headless) avec images Unsplash et stack en description. Vitrine : grille de cartes (W-1), bio « Artisan du web, je transforme des idées complexes en interfaces fluides. Lucidité, performance et design sobre. », fond crème #fdfcf0 + grain SVG, contrastes WCAG AAA. Admin optimisé (variables CSS, max-w-3xl). Identifiants admin : SECRETS.md (gitignored), à garder synchronisés avec .env pour db:seed.
 
 1. Lancer un audit Lighthouse après déploiement pour confirmer 100/100.
 2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
