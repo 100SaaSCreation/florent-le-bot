@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V2.5)
+# STATE.md — Registre d'état technique (V2.6)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -13,9 +13,10 @@
 | Git            | OK — dépôt initialisé, branch `main` |
 | Remote origin  | `https://github.com/100SaaSCreation/florent-le-bot.git` — **push OK** |
 | Production     | **https://florent-le-bot.vercel.app** (Vercel) |
-| Dernier commit | `feat: Design V2.4 - Geist, grain SVG, fade-in, empty state, smooth scroll` |
+| Dernier commit | `feat(V2.6): Cadre légal, SEO, 404, Expertise, Phase 7` |
 | Déploiement Phase 5 | ✅ **Déployé en prod** (vercel deploy --prod) |
-| Déploiement Phase 6 | ✅ **Push GitHub + vercel --prod** — design V2.4 en ligne |
+| Déploiement Phase 6 | ✅ **Push + vercel --prod** — V2.5 en ligne (grille, bio, base peuplée) |
+| Phase 7         | 🟢 **Ouverte — Vitrine Pro & Conformité** (légal, SEO, 404, Expertise) |
 
 ---
 
@@ -68,7 +69,7 @@
 
 ```json
 {
-  "phase": 6,
+  "phase": 7,
   "phase5_validated": true,
   "phase6": "Esthétique & Contenu",
   "phase4_complete": true,
@@ -107,7 +108,11 @@
   "phase6_deploy": "done (vercel --prod, design V2.4 vérifié en prod)",
   "phase6_status": "Active — Base peuplée & Design Pro",
   "seed_projects": "4 projets (SaaS Analytics, Design System, API Gateway, E-commerce Headless), images Unsplash",
-  "admin_credentials": "SECRETS.md (gitignored), synchroniser avec .env pour db:seed"
+  "admin_credentials": "SECRETS.md (gitignored), synchroniser avec .env pour db:seed",
+  "phase7": "Vitrine Pro & Conformité",
+  "legal_routes": "/mentions-legales, /confidentialite (W-1, contenu type : éditeur, Vercel, Neon, RGPD)",
+  "seo_pro": "robots.ts (disallow /admin, /login), sitemap.ts dynamique, favicon icon.tsx (F sur fond crème)",
+  "ux_v2_6": "not-found.tsx design Carnet + retour accueil, section Expertise (SaaS, Audit, Design System), footer Mentions légales · Confidentialité"
 }
 ```
 
@@ -121,7 +126,9 @@
 
 **Phase 5 :** ✅ **Validée** — Déploiement final, Lighthouse 99/100 Perf, 100/100 Accessibilité.
 
-**Phase 6 :** 🟢 **Active — Base peuplée & Design Pro** — Seed 4 projets fictifs (SaaS Analytics, Design System, API Gateway, E-commerce Headless) avec images Unsplash et stack en description. Vitrine : grille de cartes (W-1), bio « Artisan du web, je transforme des idées complexes en interfaces fluides. Lucidité, performance et design sobre. », fond crème #fdfcf0 + grain SVG, contrastes WCAG AAA. Admin optimisé (variables CSS, max-w-3xl). Identifiants admin : SECRETS.md (gitignored), à garder synchronisés avec .env pour db:seed.
+**Phase 6 :** 🟢 **Active — Base peuplée & Design Pro** — Seed 4 projets fictifs, grille cartes, bio, admin optimisé.
+
+**Phase 7 :** 🟢 **Ouverte — Vitrine Pro & Conformité** — Cadre légal : /mentions-legales (éditeur, hébergeur Vercel, données Neon), /confidentialite (données, cookies, RGPD). SEO : robots.txt (disallow /admin, /login), sitemap.xml dynamique, favicon « F » sur fond crème (icon.tsx). UX : 404 personnalisée design Carnet + bouton retour accueil ; section Expertise (Développement SaaS, Audit performance, Design System) ; footer Mentions légales · Confidentialité.
 
 1. Lancer un audit Lighthouse après déploiement pour confirmer 100/100.
 2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.

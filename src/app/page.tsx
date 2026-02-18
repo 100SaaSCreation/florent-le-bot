@@ -70,9 +70,37 @@ export default async function Home() {
           </p>
         </section>
 
-        {/* Projets — grille de cartes, fade-in delay */}
+        {/* Expertise — fade-in delay */}
         <section
           className="mb-10 sm:mb-12 animate-fade-in animate-fade-in-delay-1"
+          style={{ marginBottom: "var(--spacing-section)" }}
+        >
+          <h2
+            className="text-lg font-normal font-display mb-4"
+            style={{
+              color: "var(--foreground)",
+              marginBottom: "var(--spacing-carnet)",
+              letterSpacing: "var(--letter-spacing-tight)",
+            }}
+          >
+            Expertise
+          </h2>
+          <ul className="list-none p-0 m-0 space-y-2" style={{ color: "var(--muted)" }}>
+            <li className="text-sm" style={{ lineHeight: "var(--line-height-read)" }}>
+              Développement SaaS
+            </li>
+            <li className="text-sm" style={{ lineHeight: "var(--line-height-read)" }}>
+              Audit performance
+            </li>
+            <li className="text-sm" style={{ lineHeight: "var(--line-height-read)" }}>
+              Design System
+            </li>
+          </ul>
+        </section>
+
+        {/* Projets — grille de cartes, fade-in delay */}
+        <section
+          className="mb-10 sm:mb-12 animate-fade-in animate-fade-in-delay-2"
           style={{ marginBottom: "var(--spacing-section)" }}
         >
           <h2
@@ -162,7 +190,7 @@ export default async function Home() {
         </section>
 
         {/* Contact — fade-in delay */}
-        <section className="animate-fade-in animate-fade-in-delay-2">
+        <section className="animate-fade-in animate-fade-in-delay-3">
           <h2
             className="text-lg font-normal font-display mb-4"
             style={{
@@ -184,6 +212,32 @@ export default async function Home() {
             à venir.
           </p>
         </section>
+
+        {/* Pied de page — liens légaux */}
+        <footer
+          className="mt-12 pt-6 border-t text-sm"
+          style={{
+            marginTop: "var(--spacing-section)",
+            borderColor: "var(--border)",
+            color: "var(--muted)",
+          }}
+        >
+          <nav aria-label="Pied de page légal">
+            <Link
+              href="/mentions-legales"
+              className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]"
+            >
+              Mentions légales
+            </Link>
+            {" · "}
+            <Link
+              href="/confidentialite"
+              className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]"
+            >
+              Confidentialité
+            </Link>
+          </nav>
+        </footer>
       </main>
     </div>
   );
