@@ -32,7 +32,7 @@ export default async function Home() {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen relative z-10"
       style={{
         backgroundColor: "var(--background)",
         color: "var(--foreground)",
@@ -45,17 +45,18 @@ export default async function Home() {
           paddingBottom: "var(--spacing-section)",
         }}
       >
-        {/* Présentation — espacement carnet */}
+        {/* Présentation — fade-in, typo suisse */}
         <section
-          className="mb-10 sm:mb-12"
+          className="mb-10 sm:mb-12 animate-fade-in"
           style={{ marginBottom: "var(--spacing-section)" }}
         >
           <h1
-            className="text-2xl font-normal tracking-tight mb-4"
+            className="text-2xl font-normal font-display mb-4"
             style={{
               marginBottom: "var(--spacing-carnet)",
               lineHeight: 1.3,
               color: "var(--foreground)",
+              letterSpacing: "var(--letter-spacing-tight)",
             }}
           >
             Bienvenue
@@ -68,30 +69,46 @@ export default async function Home() {
           </p>
         </section>
 
-        {/* Projets (Neon) */}
+        {/* Projets (Neon) — fade-in delay, cartes hover */}
         <section
-          className="mb-10 sm:mb-12"
+          className="mb-10 sm:mb-12 animate-fade-in animate-fade-in-delay-1"
           style={{ marginBottom: "var(--spacing-section)" }}
         >
           <h2
-            className="text-lg font-normal mb-6"
+            className="text-lg font-normal font-display mb-6"
             style={{
               color: "var(--foreground)",
               marginBottom: "var(--spacing-carnet)",
+              letterSpacing: "var(--letter-spacing-tight)",
             }}
           >
             Projets
           </h2>
           {projects.length === 0 ? (
-            <p className="text-sm" style={{ color: "var(--muted)" }}>
-              Aucun projet pour l&apos;instant. Ils apparaîtront ici après
-              ajout en base.
-            </p>
+            <div
+              className="rounded-lg border px-6 py-10 text-center"
+              style={{ borderColor: "var(--border)", backgroundColor: "var(--background)" }}
+              role="status"
+              aria-label="Aucun projet pour l'instant"
+            >
+              <p
+                className="text-base font-normal mb-2"
+                style={{ color: "var(--foreground)" }}
+              >
+                La page blanche attend l&apos;encre.
+              </p>
+              <p
+                className="text-sm"
+                style={{ color: "var(--muted)", lineHeight: "var(--line-height-read)" }}
+              >
+                Les projets apparaîtront ici dès qu&apos;ils seront ajoutés.
+              </p>
+            </div>
           ) : (
             <ul className="space-y-6">
               {projects.map((p) => (
                 <li key={p.id} style={{ marginBottom: "var(--spacing-carnet)" }}>
-                  <article>
+                  <article className="project-card rounded-lg px-4 py-3">
                     <h3 className="font-normal" style={{ color: "var(--foreground)" }}>
                       {p.url ? (
                         <Link
@@ -121,11 +138,11 @@ export default async function Home() {
           )}
         </section>
 
-        {/* Contact */}
-        <section>
+        {/* Contact — fade-in delay */}
+        <section className="animate-fade-in animate-fade-in-delay-2">
           <h2
-            className="text-lg font-normal mb-4"
-            style={{ color: "var(--foreground)", marginBottom: "var(--spacing-carnet)" }}
+            className="text-lg font-normal font-display mb-4"
+            style={{ color: "var(--foreground)", marginBottom: "var(--spacing-carnet)", letterSpacing: "var(--letter-spacing-tight)" }}
           >
             Contact
           </h2>

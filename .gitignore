@@ -37,6 +37,9 @@ yarn-error.log*
 SECRETS.md
 /SECRETS.md
 
+# Rapports Lighthouse (local)
+lighthouse-report.json
+
 # vercel
 .vercel
 

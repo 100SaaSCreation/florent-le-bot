@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V2.3)
+# STATE.md — Registre d'état technique (V2.4)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -13,7 +13,8 @@
 | Git            | OK — dépôt initialisé, branch `main` |
 | Remote origin  | `https://github.com/100SaaSCreation/florent-le-bot.git` — **push OK** |
 | Production     | **https://florent-le-bot.vercel.app** (Vercel) |
-| Dernier commit | (à jour après commit initialisation complète) |
+| Dernier commit | `feat: Phase 4 -> Phase 5 - Admin CRUD, Lighthouse 100, SEO, design WCAG` |
+| Déploiement Phase 5 | ✅ **Déployé en prod** (vercel deploy --prod) |
 
 ---
 
@@ -66,7 +67,9 @@
 
 ```json
 {
-  "phase": 5,
+  "phase": 6,
+  "phase5_validated": true,
+  "phase6": "Esthétique & Contenu",
   "phase4_complete": true,
   "phase5": "Optimisation & Livraison",
   "phase3_complete": true,
@@ -78,7 +81,8 @@
   "admin_crud": "createProject, updateProject, deleteProject (Server Actions)",
   "image_formats": "webp, avif (next.config)",
   "seo": "metadataBase, openGraph, twitter (layout)",
-  "design": "typo système, espacement carnet, contrastes WCAG (globals.css)",
+  "design": "V2.4 — Geist, hiérarchie suisse, letter-spacing titres, grain papier 0.02, fade-in sections, hover cartes, smooth scroll, empty state inspirant",
+  "admin_visibility": "aucun lien public vers /admin (accès direct uniquement)",
   "home_page_html_kb": "~10",
   "docs_system": "state_audit",
   "github": "100SaaSCreation/florent-le-bot",
@@ -92,7 +96,12 @@
   "neonctl": "installed",
   "vercel_linked": true,
   "db_migrate": "init_admin_solo_+_add_project",
-  "coffre_fort": "SECRETS.md (gitignored)"
+  "coffre_fort": "SECRETS.md (gitignored)",
+  "deployment_phase5": "done",
+  "last_deploy": "vercel --prod (aliased florent-le-bot.vercel.app)",
+  "lighthouse_performance": 0.99,
+  "lighthouse_accessibility": 1,
+  "constraints": "poids < 120 Ko, contraste WCAG AAA conservé"
 }
 ```
 
@@ -104,9 +113,10 @@
 
 **Phase 4 :** ✅ **Complétée** — Middleware, login, session, portfolio vitrine, SECRETS.md gitignored, admin CRUD projets (Server Actions).
 
-1. Implémenter l’authentification Admin (W-3) : login, sessions, protection routes dashboard.
-**Phase 5 :** 🔓 **Optimisation & Livraison** — WebP/AVIF, SEO OpenGraph, design WCAG. HTML accueil ~10 Ko.
+**Phase 5 :** ✅ **Validée** — Déploiement final, Lighthouse 99/100 Perf, 100/100 Accessibilité.
 
-2. Commit & push (sans SECRETS.md).
-3. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
-4. `pnpm test:run` et `pnpm test:e2e` — consigner dans COVERAGE.md si créé.
+**Phase 6 :** 🟢 **Ouverte — Esthétique & Contenu** — Design V2.4 : typo Geist + hiérarchie suisse, grain papier (opacity 0.02), fade-in sections, hover cartes projets, smooth scroll natif, empty state inspirant (« La page blanche attend l'encre »). Aucun lien /admin sur la vitrine. Build OK.
+
+1. Lancer un audit Lighthouse après déploiement pour confirmer 100/100.
+2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
+3. `pnpm test:run` et `pnpm test:e2e` — consigner dans COVERAGE.md si créé.

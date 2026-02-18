@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Design "humain" — typo système, espacement carnet, contrastes WCAG AA/AAA */
+/* V2.4 — Design suisse, grain papier, WCAG AAA, smooth scroll */
 :root {
   --background: #fdfcf0;
   --foreground: #292524;
@@ -9,7 +9,10 @@
   --spacing-carnet: 1.5rem;
   --spacing-section: 2.5rem;
   --line-height-read: 1.65;
-  --font-system: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --letter-spacing-tight: -0.02em;
+  --transition-smooth: 0.2s ease;
 }
 
 @theme inline {
@@ -19,12 +22,64 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-system);
+  font-family: var(--font-body);
   line-height: var(--line-height-read);
   -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 
-/* Contraste WCAG : foreground #292524 sur #fdfcf0 > 7:1 (AAA) */
+/* Papier grainé — overlay très subtil (opacity 0.02) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hiérarchie typographique — titres avec letter-spacing réduit */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Fade-in au chargement des sections */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.animate-fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.animate-fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+/* Cartes projets — hover élégant (élévation + bordure fine) */
+.project-card {
+  transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
+  border: 1px solid var(--border);
+}
+.project-card:hover {
+  box-shadow: 0 4px 12px rgba(41, 37, 36, 0.06);
+  border-color: #a8a29e;
+}
+
+/* Contraste WCAG AAA : #292524 sur #fdfcf0 > 7:1 */
