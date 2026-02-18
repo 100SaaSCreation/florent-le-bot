@@ -46,7 +46,10 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen relative z-10" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
-      <main className="max-w-4xl mx-auto px-4 py-12 sm:py-20" style={{ paddingTop: "var(--spacing-section)", paddingBottom: "var(--spacing-section)" }}>
+      <a href="#main-content" className="skip-link">
+        Aller au contenu principal
+      </a>
+      <main id="main-content" className="max-w-4xl mx-auto px-4 py-12 sm:py-20" style={{ paddingTop: "var(--spacing-section)", paddingBottom: "var(--spacing-section)" }}>
         {/* Hero V3 */}
         <section className="mb-16 sm:mb-20 animate-fade-in text-center">
           <h1

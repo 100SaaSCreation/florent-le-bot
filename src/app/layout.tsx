@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     template: "%s | florent-le-bot",
   },
   description:
-    "Portfolio minimaliste — projets et contact. Sobre, sincère, humain.",
+    "Lead Developer & Architect — MVP, Audit Performance, Design System. Startup ready.",
   openGraph: {
     title: "florent-le-bot | Portfolio",
     description:
-      "Portfolio minimaliste — projets et contact. Sobre, sincère, humain.",
+      "Lead Developer & Architect — MVP, Audit Performance, Design System.",
     url: "/",
     siteName: "florent-le-bot",
     locale: "fr_FR",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "florent-le-bot | Portfolio",
     description:
-      "Portfolio minimaliste — projets et contact. Sobre, sincère, humain.",
+      "Lead Developer & Architect — MVP, Audit Performance, Design System.",
   },
   robots: { index: true, follow: true },
 };

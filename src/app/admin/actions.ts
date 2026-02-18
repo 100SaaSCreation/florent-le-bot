@@ -2,48 +2,55 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { createProjectSchema, updateProjectSchema } from "@/lib/schemas/project";
 
-export async function createProject(formData: FormData) {
-  const title = (formData.get("title") as string)?.trim();
-  if (!title) return;
-  const description = (formData.get("description") as string)?.trim() || null;
-  const kpis = (formData.get("kpis") as string)?.trim() || null;
-  const url = (formData.get("url") as string)?.trim() || null;
-  const imageUrl = (formData.get("imageUrl") as string)?.trim() || null;
-  const orderRaw = formData.get("order");
-  const order = orderRaw !== null && orderRaw !== "" ? Number(orderRaw) : 0;
-
-  await prisma.project.create({
-    data: { title, description, kpis, url, imageUrl, order },
+function formDataToObject(formData: FormData): Record<string, string> {
+  const o: Record<string, string> = {};
+  formData.forEach((v, k) => {
+    o[k] = typeof v === "string" ? v : "";
   });
-  revalidatePath("/");
-  revalidatePath("/admin");
+  return o;
 }
 
-export async function updateProject(formData: FormData) {
-  const id = formData.get("id") as string;
-  if (!id) return;
-  const title = (formData.get("title") as string)?.trim();
-  if (!title) return;
-  const description = (formData.get("description") as string)?.trim() || null;
-  const kpis = (formData.get("kpis") as string)?.trim() || null;
-  const url = (formData.get("url") as string)?.trim() || null;
-  const imageUrl = (formData.get("imageUrl") as string)?.trim() || null;
-  const orderRaw = formData.get("order");
-  const order = orderRaw !== null && orderRaw !== "" ? Number(orderRaw) : 0;
-
-  await prisma.project.update({
-    where: { id },
-    data: { title, description, kpis, url, imageUrl, order },
-  });
-  revalidatePath("/");
-  revalidatePath("/admin");
+export async function createProject(formData: FormData): Promise<void> {
+  const parsed = createProjectSchema.safeParse(formDataToObject(formData));
+  if (!parsed.success) return;
+  try {
+    const { title, description, kpis, url, imageUrl, order } = parsed.data;
+    await prisma.project.create({
+      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, order },
+    });
+    revalidatePath("/");
+    revalidatePath("/admin");
+  } catch {
+    revalidatePath("/admin");
+  }
 }
 
-export async function deleteProject(formData: FormData) {
-  const id = formData.get("id") as string;
-  if (!id) return;
-  await prisma.project.delete({ where: { id } });
-  revalidatePath("/");
-  revalidatePath("/admin");
+export async function updateProject(formData: FormData): Promise<void> {
+  const parsed = updateProjectSchema.safeParse(formDataToObject(formData));
+  if (!parsed.success) return;
+  try {
+    const { id, title, description, kpis, url, imageUrl, order } = parsed.data;
+    await prisma.project.update({
+      where: { id },
+      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, order },
+    });
+    revalidatePath("/");
+    revalidatePath("/admin");
+  } catch {
+    revalidatePath("/admin");
+  }
+}
+
+export async function deleteProject(formData: FormData): Promise<void> {
+  const id = formData.get("id");
+  if (typeof id !== "string" || !id.trim()) return;
+  try {
+    await prisma.project.delete({ where: { id: id.trim() } });
+    revalidatePath("/");
+    revalidatePath("/admin");
+  } catch {
+    revalidatePath("/admin");
+  }
 }

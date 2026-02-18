@@ -17,7 +17,7 @@
 | Déploiement Phase 5 | ✅ **Déployé en prod** (vercel deploy --prod) |
 | Déploiement Phase 6 | ✅ **Push + vercel --prod** — V2.5 en ligne |
 | Phase 7         | ✅ Vitrine Pro & Conformité (légal, SEO, 404) |
-| Phase 8         | 🟢 **Lancée — Échelle Startup** (BDD riche, Hero V3, design Tech) |
+| Phase 8         | ✅ **Complétée** — Échelle Startup (BDD riche, Hero V3, design Tech, CMD-360 P1–P3) |
 
 ---
 
@@ -119,7 +119,26 @@
   "ux_v2_6": "not-found.tsx, section Expertise, footer légal",
   "phase8": "Échelle Startup",
   "seed_v3": "6 projets (KPIs), 3 témoignages Elite, 3 expériences pro, 8 stack items",
-  "front_v3": "Hero V3 (titre font-black, 2 CTA), Logos « Ils me font confiance », Grille Services (Audit, MVP 4 sem, Design System, SaaS), FAQ accordéon, Réalisations + Parcours"
+  "front_v3": "Hero V3 (titre font-black, 2 CTA), Logos « Ils me font confiance », Grille Services (Audit, MVP 4 sem, Design System, SaaS), FAQ accordéon, Réalisations + Parcours",
+  "cmd360_phase1": "done",
+  "cmd360_phase1_date": "2025-02-18",
+  "scores_depart_phase2": {
+    "phase": "PHASE 2 (Robustesse)",
+    "phase2_ok_user": "2025-02-18 — OK utilisateur reçu, passage Phase 2 autorisé",
+    "w3_recensed": ["prisma/schema.prisma", "src/lib/db.ts", "src/middleware.ts", "src/app/login/actions.ts", "src/app/admin/actions.ts (Project only)"],
+    "rupture_testimonials": "table OK, pas de Server Actions ni admin UI",
+    "rupture_faq": "pas de table, données statiques FaqAccordion.tsx",
+    "rupture_services": "pas de table, constante SERVICES page.tsx",
+    "risk_R_migration_v3": "modéré (additif, W-3, Sévérité 2)",
+    "dna_page_sections": "Hero → Logos → Services → Témoignages → Parcours → Réalisations → FAQ → Contact → Footer",
+    "dna_layout": "Geist + Geist_Mono, metadataBase, html lang fr, body variables"
+  },
+  "cmd360_phase2": "done",
+  "cmd360_phase2_date": "2025-02-18",
+  "phase2_robustesse": "Zod (createProjectSchema, updateProjectSchema), CMD-SAFE (prisma validate + tsc), Server Actions try/catch + safeParse, build OK",
+  "cmd360_phase3": "done",
+  "cmd360_phase3_date": "2025-02-18",
+  "phase3_experience": "Parité DNA vérifiée (page + layout), metadata layout alignée V3, skip-link « Aller au contenu principal » + #main-content, build OK"
 }
 ```
 
@@ -137,8 +156,9 @@
 
 **Phase 7 :** ✅ **Vitrine Pro & Conformité** — Cadre légal, SEO, 404, footer légal.
 
-**Phase 8 :** 🟢 **Lancée — Échelle Startup (V3.0)** — BDD : tables Testimonial, Experience, Stack ; Project.kpis. Seed massif : 6 projets détaillés avec KPIs, 3 témoignages clients Elite, parcours pro (Freelance, HealthTech, ESN), 8 technos. Front : Hero V3 (titre géant font-black, sous-titre valeur, CTA « Démarrer un projet » / « Voir les réalisations »), bande Logos « Ils me font confiance », grille Services (Audit Performance, MVP en 4 semaines, Design System, SaaS), témoignages, parcours, réalisations (cartes glassmorphism + KPIs), FAQ accordéon. Design : grain papier remplacé par dégradés subtils, bordures vitrées (glassmorphism), typo Geist ultra-moderne, fond sombre. Admin : champ KPIs sur les projets. Favicon « F » fond sombre.
+**Phase 8 :** ✅ **Complétée** — Échelle Startup (V3.0). BDD : Testimonial, Experience, Stack, Project.kpis. Seed : 6 projets KPIs, 3 témoignages, parcours, 8 stack. Front : Hero V3, Logos, Services, FAQ accordéon, skip-link. CMD-360 Phases 1–3 livrées. Clôture : build OK, commit `chore(arch): finalize V3.0 startup-grade architecture`, push + vercel --prod.
 
-1. Lancer un audit Lighthouse après déploiement (thème sombre).
-2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
-3. `pnpm test:run` et `pnpm test:e2e` — consigner dans COVERAGE.md si créé.
+1. **CMD-360 Phase 3 (Expérience)** : ✅ Livrée — Parité DNA vérifiée, metadata layout V3, skip-link accessibilité, build OK.
+2. Lancer un audit Lighthouse après déploiement (thème sombre).
+3. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
+4. `pnpm test:run` et `pnpm test:e2e` — consigner dans COVERAGE.md si créé.
