@@ -17,6 +17,7 @@ export const createProjectSchema = z.object({
   kpis: optionalTrimmedString(),
   url: optionalTrimmedString(),
   imageUrl: optionalTrimmedString(),
+  categoryId: optionalTrimmedString(),
   order: optionalOrder(),
 });
 

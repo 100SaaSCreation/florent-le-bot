@@ -16,9 +16,9 @@ export async function createProject(formData: FormData): Promise<void> {
   const parsed = createProjectSchema.safeParse(formDataToObject(formData));
   if (!parsed.success) return;
   try {
-    const { title, description, kpis, url, imageUrl, order } = parsed.data;
+    const { title, description, kpis, url, imageUrl, categoryId, order } = parsed.data;
     await prisma.project.create({
-      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, order },
+      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, categoryId: categoryId ?? undefined, order },
     });
     revalidatePath("/");
     revalidatePath("/admin");
@@ -31,10 +31,10 @@ export async function updateProject(formData: FormData): Promise<void> {
   const parsed = updateProjectSchema.safeParse(formDataToObject(formData));
   if (!parsed.success) return;
   try {
-    const { id, title, description, kpis, url, imageUrl, order } = parsed.data;
+    const { id, title, description, kpis, url, imageUrl, categoryId, order } = parsed.data;
     await prisma.project.update({
       where: { id },
-      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, order },
+      data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, categoryId: categoryId ?? undefined, order },
     });
     revalidatePath("/");
     revalidatePath("/admin");

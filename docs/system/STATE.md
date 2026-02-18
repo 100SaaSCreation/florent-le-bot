@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V3.0)
+# STATE.md — Registre d'état technique (V4.0)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -39,8 +39,12 @@
 
 - **Admin** : id, email (unique), passwordHash, name, createdAt, updatedAt — table `admin`
 - **Session** : id, adminId, token (unique), expiresAt, createdAt — table `session`, FK Admin
-- **Project** : id, title, description, kpis, url, imageUrl, order — table `project` (portfolio)
-- **Testimonial** : id, nom, role, texte, order — table `testimonial` (V3.0)
+- **Project** : id, title, description, kpis, url, imageUrl, order, categoryId (FK optionnelle) — table `project` (portfolio)
+- **Category** : id, name, slug — table `category` (V4.0), relation 1-N vers Project
+- **Lead** : id, email, name, message, status (NEW | IN_PROGRESS | CLOSED), category, createdAt — table `lead` (V4.0)
+- **Metric** : id, label, value, unit — table `metric` (V4.0), dashboard stats
+- **Faq** : id, question, reponse, theme, order — table `faq` (V4.0)
+- **Testimonial** : id, nom, role, texte, note, avatarUrl, order — table `testimonial` (V3.0 / V4.0)
 - **Experience** : id, boite, poste, duree, order — table `experience` (V3.0)
 - **Stack** : id, nom, categorie, icone, order — table `stack` (V3.0)
 
@@ -73,7 +77,7 @@
 
 ```json
 {
-  "phase": 8,
+  "phase": 9,
   "phase5_validated": true,
   "phase6": "Esthétique & Contenu",
   "phase4_complete": true,
@@ -83,8 +87,8 @@
   "target": "Lighthouse 100",
   "production_url": "https://florent-le-bot.vercel.app",
   "neon_project_id": "snowy-glade-71111421",
-  "prisma": "schema V3.0 — admin, session, project (kpis), testimonial, experience, stack",
-  "admin_crud": "createProject, updateProject, deleteProject (Server Actions)",
+  "prisma": "schema V4.0 — admin, session, project (kpis, categoryId), category, lead, metric, faq, testimonial (note, avatarUrl), experience, stack",
+  "admin_crud": "createProject, updateProject, deleteProject (Server Actions) ; updateLeadStatus (dashboard)",
   "image_formats": "webp, avif (next.config)",
   "seo": "metadataBase, openGraph, twitter (layout)",
   "design": "V3.0 — Startup Tech : fond sombre, dégradés subtils, glassmorphism, Geist font-black Hero, cartes vitrées",
@@ -157,6 +161,12 @@
 **Phase 7 :** ✅ **Vitrine Pro & Conformité** — Cadre légal, SEO, 404, footer légal.
 
 **Phase 8 :** ✅ **Complétée** — Échelle Startup (V3.0). BDD : Testimonial, Experience, Stack, Project.kpis. Seed : 6 projets KPIs, 3 témoignages, parcours, 8 stack. Front : Hero V3, Logos, Services, FAQ accordéon, skip-link. CMD-360 Phases 1–3 livrées. Clôture : build OK, commit `chore(arch): finalize V3.0 startup-grade architecture`, push + vercel --prod.
+
+**Phase 9 :** 🟢 **En cours — SaaS-Grade Elite (V4.0)**  
+- **W-3 (Données)** : ✅ Category, Lead (status enum), Metric, Faq ; Project.categoryId ; Testimonial.note, avatarUrl. Seed V4 : 6 catégories, 8 projets catégorisés, 5 leads, 6 témoignages (note + avatar), 10 FAQ, 3 métriques.  
+- **W-2 (Engine)** : ✅ Formulaire contact `/contact` (honeypot + Zod), page succès ; ✅ Admin dashboard `/admin/dashboard` (cartes Conversion rate, Total Leads, Projets ; gestion leads avec changement de statut) ; ✅ Admin projets : select categoryId (ajout + édition). Resend (emails) et Asset Manager : non implémentés.  
+- **W-1 (UI)** : Toaster (sonner), skeletons/transitions (framer-motion), DNA thème sombre/glass/Geist : à finaliser.  
+- **Livrable** : Rapport d’impact SaaS dans AUDIT.md ; Phase 9 documentée dans STATE.md.
 
 1. **CMD-360 Phase 3 (Expérience)** : ✅ Livrée — Parité DNA vérifiée, metadata layout V3, skip-link accessibilité, build OK.
 2. Lancer un audit Lighthouse après déploiement (thème sombre).

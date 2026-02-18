@@ -10,9 +10,10 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const projects = await prisma.project.findMany({
-    orderBy: { order: "asc" },
-  });
+  const [projects, categories] = await Promise.all([
+    prisma.project.findMany({ orderBy: { order: "asc" }, include: { category: true } }),
+    prisma.category.findMany({ orderBy: { order: "asc" } }),
+  ]);
 
   return (
     <div
@@ -20,11 +21,14 @@ export default async function AdminPage() {
       style={{ backgroundColor: "var(--background)" }}
     >
       <main className="max-w-3xl mx-auto">
-        <h1 className="text-xl font-normal font-display mb-2" style={{ color: "var(--foreground)" }}>
-          Admin
-        </h1>
+        <div className="flex items-center gap-4 mb-2">
+          <h1 className="text-xl font-normal font-display" style={{ color: "var(--foreground)" }}>
+            Admin
+          </h1>
+          <a href="/admin/dashboard" className="text-sm" style={{ color: "var(--muted)" }}>Dashboard →</a>
+        </div>
         <p className="text-sm mb-8" style={{ color: "var(--muted)" }}>
-          Gestion des projets affichés sur la vitrine. Titre, description, URL, image (Unsplash ou autre), ordre.
+          Gestion des projets. Titre, description, catégorie, URL, image, ordre.
         </p>
 
         {/* Ajouter un projet */}
@@ -69,6 +73,12 @@ export default async function AdminPage() {
               className="border border-stone-300 bg-white px-3 py-2 text-stone-800 text-sm"
               aria-label="Image"
             />
+            <select name="categoryId" className="border border-stone-300 bg-white px-3 py-2 text-stone-800 text-sm" aria-label="Catégorie">
+              <option value="">— Aucune —</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
             <input
               type="number"
               name="order"
@@ -139,6 +149,12 @@ export default async function AdminPage() {
                       className="border border-stone-300 px-2 py-1 text-sm text-stone-800"
                       aria-label="Image URL"
                     />
+                    <select name="categoryId" defaultValue={p.categoryId ?? ""} className="border border-stone-300 px-2 py-1 text-sm text-stone-800" aria-label="Catégorie">
+                      <option value="">— Aucune —</option>
+                      {categories.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
                     <input
                       type="number"
                       name="order"

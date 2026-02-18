@@ -8,20 +8,16 @@ import { FaqAccordion } from "@/components/FaqAccordion";
 
 async function getData() {
   try {
-    const [projects, testimonials, experiences, stack] = await Promise.all([
-      prisma.project.findMany({ orderBy: { order: "asc" } }),
+    const [projects, testimonials, experiences, stack, faq] = await Promise.all([
+      prisma.project.findMany({ orderBy: { order: "asc" }, include: { category: true } }),
       prisma.testimonial.findMany({ orderBy: { order: "asc" } }),
       prisma.experience.findMany({ orderBy: { order: "asc" } }),
       prisma.stack.findMany({ orderBy: { order: "asc" } }),
+      prisma.faq.findMany({ orderBy: { order: "asc" } }),
     ]);
-    return { projects, testimonials, experiences, stack };
+    return { projects, testimonials, experiences, stack, faq };
   } catch {
-    return {
-      projects: [],
-      testimonials: [],
-      experiences: [],
-      stack: [],
-    };
+    return { projects: [], testimonials: [], experiences: [], stack: [], faq: [] };
   }
 }
 
@@ -42,7 +38,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const { projects, testimonials, experiences, stack } = await getData();
+  const { projects, testimonials, experiences, stack, faq } = await getData();
 
   return (
     <div className="min-h-screen relative z-10" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
@@ -123,7 +119,11 @@ export default async function Home() {
             <div className="grid gap-4 sm:grid-cols-3">
               {testimonials.map((t) => (
                 <div key={t.id} className="glass-card p-5">
+                  {t.avatarUrl && (
+                    <img src={t.avatarUrl} alt="" width={48} height={48} className="rounded-full mb-3 object-cover" style={{ width: 48, height: 48 }} />
+                  )}
                   <p className="text-sm mb-4" style={{ color: "var(--muted)", lineHeight: "var(--line-height-read)" }}>&ldquo;{t.texte}&rdquo;</p>
+                  {t.note != null && <p className="text-xs mb-1" style={{ color: "var(--muted)" }}>{"★".repeat(t.note)}{"☆".repeat(5 - t.note)}</p>}
                   <p className="font-semibold text-sm" style={{ color: "var(--foreground)" }}>{t.nom}</p>
                   <p className="text-xs" style={{ color: "var(--muted)" }}>{t.role}</p>
                 </div>
@@ -202,7 +202,7 @@ export default async function Home() {
           <h2 className="text-xl font-bold font-display mb-8" style={{ letterSpacing: "var(--letter-spacing-tight)", color: "var(--foreground)" }}>
             FAQ
           </h2>
-          <FaqAccordion />
+          <FaqAccordion items={faq} />
         </section>
 
         {/* Contact */}
@@ -210,9 +210,12 @@ export default async function Home() {
           <h2 className="text-xl font-bold font-display mb-4" style={{ letterSpacing: "var(--letter-spacing-tight)", color: "var(--foreground)" }}>
             Contact
           </h2>
-          <p className="text-sm mb-6" style={{ color: "var(--muted)", lineHeight: "var(--line-height-read)" }}>
-            Pour démarrer un projet ou échanger : utilisez le canal de votre choix ou le formulaire à venir.
+          <p className="text-sm mb-4" style={{ color: "var(--muted)", lineHeight: "var(--line-height-read)" }}>
+            Pour démarrer un projet ou échanger : envoyez un message via le formulaire.
           </p>
+          <Link href="/contact" className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg border border-[var(--glass-border)] text-sm font-semibold hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50" style={{ color: "var(--foreground)" }}>
+            Ouvrir le formulaire de contact
+          </Link>
         </section>
 
         {/* Footer */}

@@ -1,4 +1,4 @@
-# AUDIT.md — Journal de sécurité (V3.0)
+# AUDIT.md — Journal de sécurité (V4.0)
 
 **Projet :** florent-le-bot  
 **Responsable :** ARCHITECTE / LOGISTICIEN
@@ -177,6 +177,7 @@ Toute modification ultérieure (Phase 3) devra préserver cet ordre de sections,
 | 2025-02-18 | CMD-360 | Phase 2 — Robustesse : Zod, CMD-SAFE, gestion d’erreurs Server Actions | OK — Schémas project.ts, actions validées, build OK |
 | 2025-02-18 | CMD-360 | Phase 3 — Expérience : parité DNA, metadata layout V3, skip-link | OK — Aucune régression, build OK |
 | 2025-02-18 | CLÔTURE | V3.0 — Phase 8 Complétée, commit arch finalize, push + vercel --prod | OK |
+| 2025-02-18 | PHASE 9 | V4.0 SaaS-Grade Elite — Lead, Category, Metric, Faq, seed V4, contact, dashboard, categoryId admin | Rapport AUDIT + STATE.md |
 
 ---
 
@@ -233,9 +234,59 @@ Phase 8 (Échelle Startup) est officiellement **complétée**. Ouverture possibl
 
 ---
 
+---
+
+## Rapport d’impact SaaS — V4.0 Elite (Phase 9)
+
+**Date :** 2025-02-18  
+**Périmètre :** Infrastructure SaaS complète avec densité de données (W-3 / W-2 / W-1).
+
+### 1. Architecture de données (W-3)
+
+| Élément | Statut | Détail |
+|--------|--------|--------|
+| **Table Lead** | ✅ | id, email, name, message, status (NEW / IN_PROGRESS / CLOSED), category, createdAt. Enum LeadStatus. |
+| **Table Category** | ✅ | id, name, slug. Relation 1-N vers Project (categoryId optionnel). |
+| **Table Metric** | ✅ | id, label, value, unit. Alimentation dashboard (Conversion rate, Total Leads, Project count). |
+| **Table Faq** | ✅ | id, question, reponse, theme, order. Données dynamiques pour FaqAccordion. |
+| **Project.categoryId** | ✅ | FK optionnelle vers Category. Select catégorie en admin (ajout + édition). |
+| **Testimonial.note, avatarUrl** | ✅ | Note (étoiles) et avatar (DiceBear) en seed et affichage page. |
+| **Seed V4** | ✅ | 6 catégories, 8 projets catégorisés, 5 leads, 6 témoignages (note + avatar), 10 FAQ, 3 métriques, expériences et stack. |
+
+### 2. Engine & automation (W-2)
+
+| Élément | Statut | Détail |
+|--------|--------|--------|
+| **Formulaire contact** | ✅ | Route `/contact`, champ honeypot `website`, schéma Zod `submitLeadSchema`, création Lead + redirect `/contact/success`. |
+| **Dashboard admin** | ✅ | `/admin/dashboard` : cartes (Conversion rate, Total Leads, Projets), liste leads, formulaire changement de statut (NEW / IN_PROGRESS / CLOSED). |
+| **Gestion leads** | ✅ | Server Action `updateLeadStatus` (actions-lead.ts), revalidatePath dashboard. |
+| **Resend (emails)** | ⏸ | Non implémenté — à brancher si besoin d’emails transactionnels. |
+| **Asset Manager** | ⏸ | Non implémenté — upload images (local ou UploadThing) à prévoir en Phase 9 étendue. |
+
+### 3. Polissage systématique (W-1)
+
+| Élément | Statut | Détail |
+|--------|--------|--------|
+| **Toaster (sonner)** | ⏸ | À intégrer pour feedback utilisateur (succès/erreur formulaires). |
+| **Skeletons / framer-motion** | ⏸ | États de chargement et transitions à ajouter. |
+| **DNA (thème sombre, glass, Geist)** | 🟢 | Déjà en place (V3) ; renforcement « ultra-nette » possible. |
+
+### 4. Synthèse impact
+
+- **Données :** Schéma V4.0 opérationnel, seed massif exécuté, FAQ et témoignages dynamiques, leads traitables depuis le dashboard.
+- **Lead generation :** Parcours contact → succès sécurisé (honeypot + Zod), prêt pour branchement Resend.
+- **Admin :** Dashboard analytics + gestion des leads « en un clic » ; projets avec catégorie (ajout + édition).
+- **Build :** `pnpm build` ✅. Phase 9 partiellement livrée ; éléments optionnels (Resend, sonner, framer-motion, Asset Manager) reportés ou à prioriser.
+
+**Statut :** Phase 9 (SaaS-Grade Elite V4.0) — **En cours**. Rapport scellé dans AUDIT.md ; STATE.md mis à jour (Phase 9, schéma V4.0).
+
+---
+
 ## Prochaines vérifications
 
 - [x] Traiter les 6 vulnérabilités (pnpm overrides) — **fait**
 - [x] Clôture V3.0 — Phase 8 Complétée — **fait**
+- [x] Phase 9 — Rapport d’impact SaaS + STATE.md — **fait**
 - [ ] Relancer `pnpm security` (Snyk) une fois le CLI téléchargé et consigner le résultat
 - [ ] Premier run Vitest / Playwright et consignation des résultats
+- [ ] Optionnel V4 : Resend, sonner, framer-motion, Asset Manager

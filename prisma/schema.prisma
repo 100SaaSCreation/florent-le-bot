@@ -1,4 +1,4 @@
-// Prisma schema — V3.0 Startup Grade (Admin + Portfolio + Testimonials + Experience + Stack)
+// Prisma schema — V4.0 SaaS-Grade (Lead, Category, Metric, FAQ, Testimonial enrichi)
 
 generator client {
   provider = "prisma-client"
@@ -36,28 +36,78 @@ model Session {
   @@map("session")
 }
 
+// ——— Catégories projets (V4.0) ———
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  order    Int       @default(0)
+  projects Project[]
+
+  @@index([slug])
+  @@map("category")
+}
+
 // ——— Portfolio (W-1) ———
 model Project {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
-  kpis        String?  // ex: "Réduction 40% temps chargement"
+  kpis        String?
   url         String?
-  imageUrl    String?  @map("image_url")
-  order       Int      @default(0)
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  imageUrl    String?   @map("image_url")
+  order       Int       @default(0)
+  categoryId  String?   @map("category_id")
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
 
   @@index([order])
+  @@index([categoryId])
   @@map("project")
 }
 
-// ——— Témoignages clients (V3.0) ———
+// ——— Leads (V4.0) ———
+enum LeadStatus {
+  NEW
+  IN_PROGRESS
+  CLOSED
+}
+
+model Lead {
+  id        String    @id @default(cuid())
+  email     String
+  name      String?
+  message   String
+  status    LeadStatus @default(NEW)
+  category  String?   // ex: "projet", "audit", "autre"
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("lead")
+}
+
+// ——— Métriques dashboard (V4.0) ———
+model Metric {
+  id     String @id @default(cuid())
+  label  String
+  value  String // numérique ou texte
+  unit   String? // ex: "%", "k", ""
+  order  Int    @default(0)
+
+  @@index([order])
+  @@map("metric")
+}
+
+// ——— Témoignages clients (V4.0 : note + avatar) ———
 model Testimonial {
   id        String   @id @default(cuid())
   nom       String
-  role      String   // rôle du client (ex: "CEO, Startup X")
+  role      String
   texte     String
+  note      Int?     // 1-5
+  avatarUrl String?  @map("avatar_url")
   order     Int      @default(0)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -66,13 +116,25 @@ model Testimonial {
   @@map("testimonial")
 }
 
+// ——— FAQ (V4.0) ———
+model Faq {
+  id       String   @id @default(cuid())
+  question String
+  reponse  String
+  theme    String?  // ex: "MVP", "Tarifs", "Délais"
+  order    Int      @default(0)
+
+  @@index([order])
+  @@map("faq")
+}
+
 // ——— Parcours pro (V3.0) ———
 model Experience {
-  id       String   @id @default(cuid())
-  boite   String   // entreprise
-  poste   String
-  duree   String   // ex: "2020 — 2024"
-  order   Int      @default(0)
+  id        String   @id @default(cuid())
+  boite    String
+  poste    String
+  duree    String
+  order    Int      @default(0)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -84,8 +146,8 @@ model Experience {
 model Stack {
   id         String   @id @default(cuid())
   nom        String
-  categorie  String   // ex: "Frontend", "Backend", "Tools"
-  icone      String?  // emoji ou nom d'icône
+  categorie  String
+  icone      String?
   order      Int      @default(0)
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
