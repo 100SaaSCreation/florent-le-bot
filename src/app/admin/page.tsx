@@ -49,6 +49,13 @@ export default async function AdminPage() {
               aria-label="Description"
             />
             <input
+              type="text"
+              name="kpis"
+              placeholder="KPIs (ex: Réduction 40% temps chargement)"
+              className="border border-stone-300 bg-white px-3 py-2 text-stone-800 text-sm"
+              aria-label="KPIs"
+            />
+            <input
               type="url"
               name="url"
               placeholder="URL (optionnel)"
@@ -109,6 +116,14 @@ export default async function AdminPage() {
                       rows={2}
                       className="border border-stone-300 px-2 py-1 text-sm text-stone-800 resize-y"
                       aria-label="Description"
+                    />
+                    <input
+                      type="text"
+                      name="kpis"
+                      defaultValue={p.kpis ?? ""}
+                      placeholder="KPIs"
+                      className="border border-stone-300 px-2 py-1 text-sm text-stone-800"
+                      aria-label="KPIs"
                     />
                     <input
                       type="url"

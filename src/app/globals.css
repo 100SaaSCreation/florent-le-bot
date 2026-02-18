@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
-/* V2.4 — Design suisse, grain papier, WCAG AAA, smooth scroll */
+/* V3.0 — Startup Tech : dégradés, glassmorphism, typo Geist ultra-moderne */
 :root {
-  --background: #fdfcf0;
-  --foreground: #292524;
-  --muted: #57534e;
-  --border: #d6d3d1;
-  --spacing-carnet: 1.5rem;
+  --background: #0a0a0b;
+  --background-alt: #111113;
+  --foreground: #fafafa;
+  --muted: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --spacing-section: 2.5rem;
   --line-height-read: 1.65;
-  --font-display: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --letter-spacing-tight: -0.02em;
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, sans-serif;
+  --letter-spacing-tight: -0.03em;
   --transition-smooth: 0.2s ease;
+  --gradient-hero: linear-gradient(180deg, rgba(10, 10, 11, 0) 0%, rgba(10, 10, 11, 0.8) 50%, #0a0a0b 100%);
 }
 
 @theme inline {
@@ -35,24 +38,23 @@ body {
   position: relative;
 }
 
-/* Papier grainé — overlay très subtil (opacity 0.02) */
+/* Fond dégradé subtil (remplace grain papier) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.02;
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(59, 130, 246, 0.06), transparent);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Hiérarchie typographique — titres avec letter-spacing réduit */
 .font-display {
   font-family: var(--font-display);
   letter-spacing: var(--letter-spacing-tight);
 }
 
-/* Fade-in au chargement des sections */
+/* Fade-in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -72,25 +74,24 @@ body::before {
 .animate-fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
 .animate-fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
 
-/* Cartes projets — hover élégant (élévation + bordure fine) */
-.project-card {
-  transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
-  border: 1px solid var(--border);
+/* Glassmorphism — cartes */
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
-.project-card:hover {
-  box-shadow: 0 4px 12px rgba(41, 37, 36, 0.06);
-  border-color: #a8a29e;
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Grille portfolio pro — cartes espacées */
 .projects-grid {
   display: grid;
-  gap: var(--spacing-carnet);
+  gap: 1.5rem;
 }
 @media (min-width: 640px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* Contraste WCAG AAA : #292524 sur #fdfcf0 > 7:1 */

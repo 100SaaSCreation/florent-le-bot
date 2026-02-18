@@ -1,5 +1,4 @@
-// Prisma schema — Admin Solo (V2.3)
-// Noyau W-3 : schéma unique, un seul administrateur
+// Prisma schema — V3.0 Startup Grade (Admin + Portfolio + Testimonials + Experience + Stack)
 
 generator client {
   provider = "prisma-client"
@@ -23,7 +22,6 @@ model Admin {
   @@map("admin")
 }
 
-// ——— Sessions (révocation, expiration) ———
 model Session {
   id        String   @id @default(cuid())
   adminId   String   @map("admin_id")
@@ -43,6 +41,7 @@ model Project {
   id          String   @id @default(cuid())
   title       String
   description String?
+  kpis        String?  // ex: "Réduction 40% temps chargement"
   url         String?
   imageUrl    String?  @map("image_url")
   order       Int      @default(0)
@@ -51,4 +50,47 @@ model Project {
 
   @@index([order])
   @@map("project")
+}
+
+// ——— Témoignages clients (V3.0) ———
+model Testimonial {
+  id        String   @id @default(cuid())
+  nom       String
+  role      String   // rôle du client (ex: "CEO, Startup X")
+  texte     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([order])
+  @@map("testimonial")
+}
+
+// ——— Parcours pro (V3.0) ———
+model Experience {
+  id       String   @id @default(cuid())
+  boite   String   // entreprise
+  poste   String
+  duree   String   // ex: "2020 — 2024"
+  order   Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([order])
+  @@map("experience")
+}
+
+// ——— Stack / technos (V3.0) ———
+model Stack {
+  id         String   @id @default(cuid())
+  nom        String
+  categorie  String   // ex: "Frontend", "Backend", "Tools"
+  icone      String?  // emoji ou nom d'icône
+  order      Int      @default(0)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([order])
+  @@index([categorie])
+  @@map("stack")
 }

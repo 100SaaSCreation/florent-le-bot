@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V2.6)
+# STATE.md — Registre d'état technique (V3.0)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -13,10 +13,11 @@
 | Git            | OK — dépôt initialisé, branch `main` |
 | Remote origin  | `https://github.com/100SaaSCreation/florent-le-bot.git` — **push OK** |
 | Production     | **https://florent-le-bot.vercel.app** (Vercel) |
-| Dernier commit | `feat(V2.6): Cadre légal, SEO, 404, Expertise, Phase 7` |
+| Dernier commit | `feat(V3.0): Startup Grade Transformation` |
 | Déploiement Phase 5 | ✅ **Déployé en prod** (vercel deploy --prod) |
-| Déploiement Phase 6 | ✅ **Push + vercel --prod** — V2.5 en ligne (grille, bio, base peuplée) |
-| Phase 7         | 🟢 **Ouverte — Vitrine Pro & Conformité** (légal, SEO, 404, Expertise) |
+| Déploiement Phase 6 | ✅ **Push + vercel --prod** — V2.5 en ligne |
+| Phase 7         | ✅ Vitrine Pro & Conformité (légal, SEO, 404) |
+| Phase 8         | 🟢 **Lancée — Échelle Startup** (BDD riche, Hero V3, design Tech) |
 
 ---
 
@@ -37,8 +38,11 @@
 **Fichier :** `prisma/schema.prisma`
 
 - **Admin** : id, email (unique), passwordHash, name, createdAt, updatedAt — table `admin`
-- **Session** : id, adminId, token (unique), expiresAt, createdAt — table `session`, FK Admin, index sur adminId, token, expiresAt
-- **Project** : id, title, description, url, imageUrl, order — table `project` (portfolio)
+- **Session** : id, adminId, token (unique), expiresAt, createdAt — table `session`, FK Admin
+- **Project** : id, title, description, kpis, url, imageUrl, order — table `project` (portfolio)
+- **Testimonial** : id, nom, role, texte, order — table `testimonial` (V3.0)
+- **Experience** : id, boite, poste, duree, order — table `experience` (V3.0)
+- **Stack** : id, nom, categorie, icone, order — table `stack` (V3.0)
 
 - **Provider :** PostgreSQL
 - **Migrations :** `prisma/migrations`
@@ -69,7 +73,7 @@
 
 ```json
 {
-  "phase": 7,
+  "phase": 8,
   "phase5_validated": true,
   "phase6": "Esthétique & Contenu",
   "phase4_complete": true,
@@ -79,11 +83,11 @@
   "target": "Lighthouse 100",
   "production_url": "https://florent-le-bot.vercel.app",
   "neon_project_id": "snowy-glade-71111421",
-  "prisma": "schema_admin_solo_+_project",
+  "prisma": "schema V3.0 — admin, session, project (kpis), testimonial, experience, stack",
   "admin_crud": "createProject, updateProject, deleteProject (Server Actions)",
   "image_formats": "webp, avif (next.config)",
   "seo": "metadataBase, openGraph, twitter (layout)",
-  "design": "V2.5 — Grille cartes portfolio pro, bio « Artisan du web… », Geist, grain papier, WCAG AAA, images Unsplash (next.config remotePatterns)",
+  "design": "V3.0 — Startup Tech : fond sombre, dégradés subtils, glassmorphism, Geist font-black Hero, cartes vitrées",
   "admin_visibility": "aucun lien public vers /admin (accès direct uniquement)",
   "home_page_html_kb": "~10",
   "docs_system": "state_audit",
@@ -112,7 +116,10 @@
   "phase7": "Vitrine Pro & Conformité",
   "legal_routes": "/mentions-legales, /confidentialite (W-1, contenu type : éditeur, Vercel, Neon, RGPD)",
   "seo_pro": "robots.ts (disallow /admin, /login), sitemap.ts dynamique, favicon icon.tsx (F sur fond crème)",
-  "ux_v2_6": "not-found.tsx design Carnet + retour accueil, section Expertise (SaaS, Audit, Design System), footer Mentions légales · Confidentialité"
+  "ux_v2_6": "not-found.tsx, section Expertise, footer légal",
+  "phase8": "Échelle Startup",
+  "seed_v3": "6 projets (KPIs), 3 témoignages Elite, 3 expériences pro, 8 stack items",
+  "front_v3": "Hero V3 (titre font-black, 2 CTA), Logos « Ils me font confiance », Grille Services (Audit, MVP 4 sem, Design System, SaaS), FAQ accordéon, Réalisations + Parcours"
 }
 ```
 
@@ -128,8 +135,10 @@
 
 **Phase 6 :** 🟢 **Active — Base peuplée & Design Pro** — Seed 4 projets fictifs, grille cartes, bio, admin optimisé.
 
-**Phase 7 :** 🟢 **Ouverte — Vitrine Pro & Conformité** — Cadre légal : /mentions-legales (éditeur, hébergeur Vercel, données Neon), /confidentialite (données, cookies, RGPD). SEO : robots.txt (disallow /admin, /login), sitemap.xml dynamique, favicon « F » sur fond crème (icon.tsx). UX : 404 personnalisée design Carnet + bouton retour accueil ; section Expertise (Développement SaaS, Audit performance, Design System) ; footer Mentions légales · Confidentialité.
+**Phase 7 :** ✅ **Vitrine Pro & Conformité** — Cadre légal, SEO, 404, footer légal.
 
-1. Lancer un audit Lighthouse après déploiement pour confirmer 100/100.
+**Phase 8 :** 🟢 **Lancée — Échelle Startup (V3.0)** — BDD : tables Testimonial, Experience, Stack ; Project.kpis. Seed massif : 6 projets détaillés avec KPIs, 3 témoignages clients Elite, parcours pro (Freelance, HealthTech, ESN), 8 technos. Front : Hero V3 (titre géant font-black, sous-titre valeur, CTA « Démarrer un projet » / « Voir les réalisations »), bande Logos « Ils me font confiance », grille Services (Audit Performance, MVP en 4 semaines, Design System, SaaS), témoignages, parcours, réalisations (cartes glassmorphism + KPIs), FAQ accordéon. Design : grain papier remplacé par dégradés subtils, bordures vitrées (glassmorphism), typo Geist ultra-moderne, fond sombre. Admin : champ KPIs sur les projets. Favicon « F » fond sombre.
+
+1. Lancer un audit Lighthouse après déploiement (thème sombre).
 2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
 3. `pnpm test:run` et `pnpm test:e2e` — consigner dans COVERAGE.md si créé.

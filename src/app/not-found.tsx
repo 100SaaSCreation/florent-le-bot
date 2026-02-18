@@ -33,9 +33,9 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="inline-block py-2.5 px-5 rounded border text-sm font-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)] focus-visible:ring-offset-2"
+          className="inline-block py-2.5 px-5 rounded-lg border text-sm font-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
           style={{
-            borderColor: "var(--border)",
+            borderColor: "var(--glass-border)",
             color: "var(--foreground)",
             backgroundColor: "var(--background)",
           }}

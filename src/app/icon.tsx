@@ -16,11 +16,11 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fdfcf0",
+          background: "#0a0a0b",
           fontFamily: "system-ui, sans-serif",
           fontSize: 20,
-          fontWeight: 600,
-          color: "#292524",
+          fontWeight: 700,
+          color: "#fafafa",
         }}
       >
         F
