@@ -1,0 +1,54 @@
+// Prisma schema — Admin Solo (V2.3)
+// Noyau W-3 : schéma unique, un seul administrateur
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ——— Admin unique (W-3) ———
+model Admin {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  name         String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  sessions     Session[]
+
+  @@map("admin")
+}
+
+// ——— Sessions (révocation, expiration) ———
+model Session {
+  id        String   @id @default(cuid())
+  adminId   String   @map("admin_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([token])
+  @@index([expiresAt])
+  @@map("session")
+}
+
+// ——— Portfolio (W-1) ———
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  url         String?
+  imageUrl    String?  @map("image_url")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([order])
+  @@map("project")
+}
