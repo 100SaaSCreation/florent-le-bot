@@ -267,9 +267,9 @@ Phase 8 (Échelle Startup) est officiellement **complétée**. Ouverture possibl
 
 | Élément | Statut | Détail |
 |--------|--------|--------|
-| **Toaster (sonner)** | ⏸ | À intégrer pour feedback utilisateur (succès/erreur formulaires). |
-| **Skeletons / framer-motion** | ⏸ | États de chargement et transitions à ajouter. |
-| **DNA (thème sombre, glass, Geist)** | 🟢 | Déjà en place (V3) ; renforcement « ultra-nette » possible. |
+| **Toaster (sonner)** | ✅ | Intégré (layout), feedback admin : projet ajouté/mis à jour/supprimé, statut lead mis à jour. |
+| **Skeletons / framer-motion** | ✅ | loading.tsx admin + dashboard avec Skeleton (framer-motion) ; transitions douces. |
+| **DNA (thème sombre, glass, Geist)** | ✅ | V4.1 : fond #050505, bordures glass plus fines, admin-nav backdrop-blur. |
 
 ### 4. Synthèse impact
 
@@ -282,11 +282,62 @@ Phase 8 (Échelle Startup) est officiellement **complétée**. Ouverture possibl
 
 ---
 
+## Clôture de session — Chantier « Zéro MVP » (V4.1)
+
+**Date :** 2025-02-18
+
+### Livrables V4.1 (finitions & haut niveau)
+
+| Domaine | Réalisé |
+|--------|--------|
+| **Feedback instantané** | Toaster sonner sur toutes les actions admin (projet ajouté/mis à jour/supprimé, statut lead mis à jour). |
+| **Fluidité SaaS** | Skeletons de chargement (admin, dashboard) avec framer-motion ; loading.tsx dédiés. |
+| **Validation visuelle** | Badges de couleur pour les statuts leads : Bleu (Nouveau), Orange (En cours), Vert (Clôturé). |
+| **Densité contenu** | Seed V4.1 : projets avec KPIs réels (+45% conversion, build 3 semaines), catégories explicites (SaaS, Audit Tech, Design System), témoignages 5★ avec avatars Unsplash. |
+| **Automation** | Resend : chaque nouveau lead déclenche une notification email (template HTML sombre) vers NOTIFY_EMAIL si RESEND_API_KEY configuré. |
+| **Dashboard** | Compteurs dynamiques (Conversion rate, Total Leads, Projets) + métriques table Metric ; layout admin avec barre nav backdrop-blur. |
+| **ADN visuel** | Fond #050505, bordures glass plus fines (0.08), admin-nav avec backdrop-blur ; thème sombre accentué. |
+
+### Variables d’environnement optionnelles
+
+- **RESEND_API_KEY** : clé API Resend pour envoi des notifications lead.
+- **NOTIFY_EMAIL** : adresse de réception des notifications (sinon aucun envoi).
+- **RESEND_FROM** : expéditeur (défaut : `Portfolio <onboarding@resend.dev>` pour tests).
+
+**Statut :** Chantier « Zéro MVP » **clôturé**. Infrastructure SaaS V4.1 opérationnelle.
+
+---
+
+## V4.2 — Rapport de conformité Performance & Accessibilité (Lighthouse)
+
+**Date :** 2025-02-18  
+**Objectif :** Cible Lighthouse 100/100 Performance et Accessibilité après déploiement.
+
+### Mesures mises en place
+
+| Domaine | Action |
+|--------|--------|
+| **LCP (Performance)** | Image Hero en tête de page avec `priority`, `width` et `height` explicites (1200×514) ; suppression risque NO_LCP. |
+| **Contraste (Accessibilité)** | Couleurs WCAG AAA : mode sombre (#fafafa sur #050505), mode clair (#1c1917 sur #fafaf9). Variables CSS `.light` pour texte et fond. |
+| **Aria & sémantique** | `aria-label` descriptifs sur : CTA Hero (Démarrer un projet, Voir les réalisations), lien contact, liens footer (Mentions légales, Confidentialité), liens projets (Ouvrir le projet X), bouton FAQ (Ouvrir/Fermer), Admin/Dashboard, ThemeToggle (Passer en mode clair/sombre). |
+| **Formulaires admin** | Champs et select avec classe `.input-admin` : fond et texte lisibles en clair (blanc/#171717) et sombre (zinc-800/#fafafa). Correction bug select blanc sur blanc. |
+| **Thème** | next-themes (class), transition `transition-colors duration-300` sur html/body pour passage fluide dark/light. |
+
+### Validation
+
+- `pnpm build` ✅ sans régression.
+- **Lighthouse** : à lancer après `vercel --prod` sur https://florent-le-bot.vercel.app (mode sombre et mode clair) pour confirmer 100/100 Perf et Accessibilité.
+
+**Lien production :** https://florent-le-bot.vercel.app
+
+---
+
 ## Prochaines vérifications
 
 - [x] Traiter les 6 vulnérabilités (pnpm overrides) — **fait**
 - [x] Clôture V3.0 — Phase 8 Complétée — **fait**
 - [x] Phase 9 — Rapport d’impact SaaS + STATE.md — **fait**
+- [x] V4.2 — Polissage final (next-themes, LCP, WCAG AAA, STATE Phase 10) — **fait**
 - [ ] Relancer `pnpm security` (Snyk) une fois le CLI téléchargé et consigner le résultat
 - [ ] Premier run Vitest / Playwright et consignation des résultats
-- [ ] Optionnel V4 : Resend, sonner, framer-motion, Asset Manager
+- [x] V4.1 : sonner, framer-motion (skeletons), Resend (notification lead), DNA #050505, Seed haut de gamme — **fait**

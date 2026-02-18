@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { submitLeadSchema } from "@/lib/schemas/lead";
+import { sendLeadNotification } from "@/lib/email";
 
 function formToObject(formData: FormData): Record<string, string> {
   const o: Record<string, string> = {};
@@ -21,6 +22,7 @@ export async function submitLead(formData: FormData) {
     await prisma.lead.create({
       data: { email, name, message, category: category || null, status: "NEW" },
     });
+    await sendLeadNotification({ email, name, message, category: category || null });
   } catch {
     redirect("/contact?error=server");
   }

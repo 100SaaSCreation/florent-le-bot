@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { createProjectSchema, updateProjectSchema } from "@/lib/schemas/project";
 
@@ -21,7 +22,7 @@ export async function createProject(formData: FormData): Promise<void> {
       data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, categoryId: categoryId ?? undefined, order },
     });
     revalidatePath("/");
-    revalidatePath("/admin");
+    redirect("/admin?toast=project_added");
   } catch {
     revalidatePath("/admin");
   }
@@ -37,7 +38,7 @@ export async function updateProject(formData: FormData): Promise<void> {
       data: { title, description: description ?? undefined, kpis: kpis ?? undefined, url: url ?? undefined, imageUrl: imageUrl ?? undefined, categoryId: categoryId ?? undefined, order },
     });
     revalidatePath("/");
-    revalidatePath("/admin");
+    redirect("/admin?toast=project_updated");
   } catch {
     revalidatePath("/admin");
   }
@@ -49,7 +50,7 @@ export async function deleteProject(formData: FormData): Promise<void> {
   try {
     await prisma.project.delete({ where: { id: id.trim() } });
     revalidatePath("/");
-    revalidatePath("/admin");
+    redirect("/admin?toast=project_deleted");
   } catch {
     revalidatePath("/admin");
   }

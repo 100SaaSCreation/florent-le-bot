@@ -1,4 +1,4 @@
-# STATE.md — Registre d'état technique (V4.0)
+# STATE.md — Registre d'état technique (V4.2)
 
 **Dernière mise à jour :** 2025-02-18  
 **Projet :** florent-le-bot  
@@ -77,7 +77,7 @@
 
 ```json
 {
-  "phase": 9,
+  "phase": 10,
   "phase5_validated": true,
   "phase6": "Esthétique & Contenu",
   "phase4_complete": true,
@@ -91,7 +91,7 @@
   "admin_crud": "createProject, updateProject, deleteProject (Server Actions) ; updateLeadStatus (dashboard)",
   "image_formats": "webp, avif (next.config)",
   "seo": "metadataBase, openGraph, twitter (layout)",
-  "design": "V3.0 — Startup Tech : fond sombre, dégradés subtils, glassmorphism, Geist font-black Hero, cartes vitrées",
+  "design": "V4.2 — Dark/Light (next-themes), fond #050505 / paper #fafaf9, glass, Geist, Hero LCP, WCAG AAA",
   "admin_visibility": "aucun lien public vers /admin (accès direct uniquement)",
   "home_page_html_kb": "~10",
   "docs_system": "state_audit",
@@ -162,11 +162,12 @@
 
 **Phase 8 :** ✅ **Complétée** — Échelle Startup (V3.0). BDD : Testimonial, Experience, Stack, Project.kpis. Seed : 6 projets KPIs, 3 témoignages, parcours, 8 stack. Front : Hero V3, Logos, Services, FAQ accordéon, skip-link. CMD-360 Phases 1–3 livrées. Clôture : build OK, commit `chore(arch): finalize V3.0 startup-grade architecture`, push + vercel --prod.
 
-**Phase 9 :** 🟢 **En cours — SaaS-Grade Elite (V4.0)**  
-- **W-3 (Données)** : ✅ Category, Lead (status enum), Metric, Faq ; Project.categoryId ; Testimonial.note, avatarUrl. Seed V4 : 6 catégories, 8 projets catégorisés, 5 leads, 6 témoignages (note + avatar), 10 FAQ, 3 métriques.  
-- **W-2 (Engine)** : ✅ Formulaire contact `/contact` (honeypot + Zod), page succès ; ✅ Admin dashboard `/admin/dashboard` (cartes Conversion rate, Total Leads, Projets ; gestion leads avec changement de statut) ; ✅ Admin projets : select categoryId (ajout + édition). Resend (emails) et Asset Manager : non implémentés.  
-- **W-1 (UI)** : Toaster (sonner), skeletons/transitions (framer-motion), DNA thème sombre/glass/Geist : à finaliser.  
-- **Livrable** : Rapport d’impact SaaS dans AUDIT.md ; Phase 9 documentée dans STATE.md.
+**Phase 9 :** ✅ **SaaS-Grade Elite (V4.0 / V4.1)** — Données, contact, dashboard, sonner, Resend, Seed V4.1, DNA #050505.
+
+**Phase 10 :** ✅ **Polissage final & thèmes (V4.2)**  
+- **Performance & accessibilité** : Contraste WCAG AAA (variables light/dark), Hero image LCP avec `priority` et dimensions explicites, `aria-label` sur tous les boutons/liens (CTA, footer, FAQ, admin).  
+- **Theme Engine** : next-themes (class), ThemeToggle Soleil/Lune (page d’accueil flottant + barre admin), mode clair « Paper/Notebook » (#fafaf9, #1c1917).  
+- **Polissage** : transition couleurs 0.3s (html/body), select/inputs admin `.input-admin` lisibles en clair et sombre, @custom-variant dark (Tailwind v4).
 
 1. **CMD-360 Phase 3 (Expérience)** : ✅ Livrée — Parité DNA vérifiée, metadata layout V3, skip-link accessibilité, build OK.
 2. Lancer un audit Lighthouse après déploiement (thème sombre).

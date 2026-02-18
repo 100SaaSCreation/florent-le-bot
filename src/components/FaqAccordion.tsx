@@ -25,14 +25,15 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
           <button
             type="button"
             onClick={() => setOpenId(openId === item.id ? null : item.id)}
-            className="w-full flex items-center justify-between gap-4 py-4 px-5 text-left text-sm font-medium transition-colors hover:bg-white/5"
+            className="w-full flex items-center justify-between gap-4 py-4 px-5 text-left text-sm font-medium transition-colors hover:bg-white/5 rounded-t-xl"
             style={{ color: "var(--foreground)" }}
             aria-expanded={openId === item.id}
             aria-controls={`faq-answer-${item.id}`}
             id={`faq-question-${item.id}`}
+            aria-label={openId === item.id ? `Fermer : ${item.question}` : `Ouvrir : ${item.question}`}
           >
             <span>{item.question}</span>
-            <span className="text-lg leading-none transition-transform" style={{ transform: openId === item.id ? "rotate(45deg)" : "rotate(0)", color: "var(--muted)" }} aria-hidden>+</span>
+            <span className="text-lg leading-none transition-transform shrink-0" style={{ transform: openId === item.id ? "rotate(45deg)" : "rotate(0)", color: "var(--muted)" }} aria-hidden>+</span>
           </button>
           <div id={`faq-answer-${item.id}`} role="region" aria-labelledby={`faq-question-${item.id}`} className="grid transition-[grid-template-rows] duration-200" style={{ gridTemplateRows: openId === item.id ? "1fr" : "0fr" }}>
             <div className="overflow-hidden">

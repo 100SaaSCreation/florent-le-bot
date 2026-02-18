@@ -1,10 +1,11 @@
 /**
- * Vitrine V3.0 — Startup Ready : Hero, Logos, Services, Témoignages, Parcours, Projets, FAQ
+ * Vitrine V4.2 — Hero LCP, thème, accessibilité WCAG AAA
  */
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 async function getData() {
   try {
@@ -41,13 +42,27 @@ export default async function Home() {
   const { projects, testimonials, experiences, stack, faq } = await getData();
 
   return (
-    <div className="min-h-screen relative z-10" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
+    <div className="min-h-screen relative z-10 transition-colors duration-300" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
       <a href="#main-content" className="skip-link">
         Aller au contenu principal
       </a>
+      <div className="fixed top-4 right-4 z-20" aria-label="Changer le thème">
+        <ThemeToggle />
+      </div>
       <main id="main-content" className="max-w-4xl mx-auto px-4 py-12 sm:py-20" style={{ paddingTop: "var(--spacing-section)", paddingBottom: "var(--spacing-section)" }}>
-        {/* Hero V3 */}
+        {/* Hero V4.2 — Image LCP + priority */}
         <section className="mb-16 sm:mb-20 animate-fade-in text-center">
+          <div className="relative w-full max-w-3xl mx-auto aspect-[21/9] rounded-xl overflow-hidden mb-8 bg-zinc-800/50">
+            <Image
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
+              alt=""
+              width={1200}
+              height={514}
+              priority
+              className="object-cover w-full h-full"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
+          </div>
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 font-display"
             style={{ letterSpacing: "var(--letter-spacing-tight)", lineHeight: 1.1, color: "var(--foreground)" }}
@@ -61,6 +76,7 @@ export default async function Home() {
             <Link
               href="#contact"
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-sm font-semibold bg-white text-black hover:bg-zinc-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+              aria-label="Aller au formulaire de contact pour démarrer un projet"
             >
               Démarrer un projet
             </Link>
@@ -68,6 +84,7 @@ export default async function Home() {
               href="#realisations"
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-sm font-semibold border border-[var(--glass-border)] hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               style={{ color: "var(--foreground)" }}
+              aria-label="Voir la section Réalisations"
             >
               Voir les réalisations
             </Link>
@@ -173,7 +190,7 @@ export default async function Home() {
                       target={p.url ? "_blank" : undefined}
                       rel={p.url ? "noopener noreferrer" : undefined}
                       className="flex flex-col h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
-                      aria-label={p.url ? `Voir ${p.title}` : p.title}
+                      aria-label={p.url ? `Ouvrir le projet ${p.title} dans un nouvel onglet` : `Projet ${p.title}`}
                     >
                       {p.imageUrl && (
                         <span className="block relative w-full aspect-[16/10] bg-zinc-800">
@@ -213,7 +230,7 @@ export default async function Home() {
           <p className="text-sm mb-4" style={{ color: "var(--muted)", lineHeight: "var(--line-height-read)" }}>
             Pour démarrer un projet ou échanger : envoyez un message via le formulaire.
           </p>
-          <Link href="/contact" className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg border border-[var(--glass-border)] text-sm font-semibold hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50" style={{ color: "var(--foreground)" }}>
+          <Link href="/contact" className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg border border-[var(--glass-border)] text-sm font-semibold hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50" style={{ color: "var(--foreground)" }} aria-label="Ouvrir le formulaire de contact">
             Ouvrir le formulaire de contact
           </Link>
         </section>
@@ -221,9 +238,9 @@ export default async function Home() {
         {/* Footer */}
         <footer className="pt-8 border-t text-sm" style={{ borderColor: "var(--glass-border)", color: "var(--muted)" }}>
           <nav aria-label="Pied de page légal">
-            <Link href="/mentions-legales" className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">Mentions légales</Link>
+            <Link href="/mentions-legales" className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50" aria-label="Lire les mentions légales">Mentions légales</Link>
             {" · "}
-            <Link href="/confidentialite" className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">Confidentialité</Link>
+            <Link href="/confidentialite" className="underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50" aria-label="Lire la politique de confidentialité">Confidentialité</Link>
           </nav>
         </footer>
       </main>
