@@ -13,8 +13,9 @@
 | Git            | OK — dépôt initialisé, branch `main` |
 | Remote origin  | `https://github.com/100SaaSCreation/florent-le-bot.git` — **push OK** |
 | Production     | **https://florent-le-bot.vercel.app** (Vercel) |
-| Dernier commit | `feat: Phase 4 -> Phase 5 - Admin CRUD, Lighthouse 100, SEO, design WCAG` |
+| Dernier commit | `feat: Design V2.4 - Geist, grain SVG, fade-in, empty state, smooth scroll` |
 | Déploiement Phase 5 | ✅ **Déployé en prod** (vercel deploy --prod) |
+| Déploiement Phase 6 | ✅ **Push GitHub + vercel --prod** — design V2.4 en ligne |
 
 ---
 
@@ -101,7 +102,9 @@
   "last_deploy": "vercel --prod (aliased florent-le-bot.vercel.app)",
   "lighthouse_performance": 0.99,
   "lighthouse_accessibility": 1,
-  "constraints": "poids < 120 Ko, contraste WCAG AAA conservé"
+  "constraints": "poids < 120 Ko, contraste WCAG AAA conservé",
+  "phase6_push": "done (commit fd851b6)",
+  "phase6_deploy": "done (vercel --prod, design V2.4 vérifié en prod)"
 }
 ```
 
@@ -115,7 +118,7 @@
 
 **Phase 5 :** ✅ **Validée** — Déploiement final, Lighthouse 99/100 Perf, 100/100 Accessibilité.
 
-**Phase 6 :** 🟢 **Ouverte — Esthétique & Contenu** — Design V2.4 : typo Geist + hiérarchie suisse, grain papier (opacity 0.02), fade-in sections, hover cartes projets, smooth scroll natif, empty state inspirant (« La page blanche attend l'encre »). Aucun lien /admin sur la vitrine. Build OK.
+**Phase 6 :** ✅ **Push & déploiement effectués** — Commit `fd851b6` poussé sur GitHub, `vercel --prod` exécuté. **https://florent-le-bot.vercel.app** affiche le design V2.4 (Bienvenue, empty state « La page blanche attend l'encre », Contact). Typo Geist, grain papier, fade-in, smooth scroll en production.
 
 1. Lancer un audit Lighthouse après déploiement pour confirmer 100/100.
 2. Relancer `pnpm security` (Snyk) après `snyk auth` si besoin.
